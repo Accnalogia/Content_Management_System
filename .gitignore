@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+**/migrations/*
+*/media/*
+db.sqlite3
+.idea/*
+common-static/*
+docs/*
+media/*
+*.vscode
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
+/venv/
