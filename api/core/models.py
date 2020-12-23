@@ -79,5 +79,5 @@ class CMSUser(EmailAbstractUser):
     city = models.TextField(null=True)
     state = models.TextField(null=True)
     country = models.TextField(null=True)
-    pincode = models.CharField(max_length=10)
+    pincode = models.CharField(max_length=10, null=True)
     is_admin = models.BooleanField(default=False)
