@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MaxValueValidator
 
 
 class BaseModelMixin(models.Model):
@@ -71,13 +72,12 @@ class EmailAbstractUser(AbstractUser, BaseModelMixin):
 
 
 class CMSUser(EmailAbstractUser):
-    first_name = models.CharField(blank=True, null=True, max_length=30,)
-    # middle_name = models.CharField(blank=True, null=True, max_length=30,)
-    last_name = models.CharField(blank=True, null=True, max_length=30,)
-    phone_number = models.CharField(max_length=15,blank=True, null=True)
+    first_name = models.CharField(max_length=30, null=False)
+    last_name = models.CharField(max_length=30, null=False)
+    phone_number = models.IntegerField(validators=[MaxValueValidator(9999999999)], null=False)
     address = models.TextField(null=True)
     city = models.TextField(null=True)
     state = models.TextField(null=True)
     country = models.TextField(null=True)
-    pincode = models.CharField(max_length=10, null=True)
+    pincode = models.IntegerField(validators=[MaxValueValidator(999999)], null=False)
     is_admin = models.BooleanField(default=False)
