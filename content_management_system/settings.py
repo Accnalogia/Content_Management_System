@@ -108,6 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CUSTOM AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+AUTH_USER_MODEL = 'core.CMSUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
