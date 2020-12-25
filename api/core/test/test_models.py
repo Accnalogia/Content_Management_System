@@ -7,9 +7,9 @@ class CMSUserTest(TestCase):
 
     def setUp(self):
         CMSUser.objects.create(username='252ab5dd-140f-4a1a-be42-5893f9894544',
-            email='johndoe@gmail.com', password='qwerty12345', first_name='john', last_name='doe')
+            email='johndoe@gmail.com', password='qwerty12345', first_name='john', last_name='doe', pincode='245875', phone_number='1547581247')
         CMSUser.objects.create(username='4cb3bd1e-2193-48da-a6b1-8ccc0f64ec48',
-            email='joeytribiani@yahoo.com', password='12345qwerty', first_name='joey', last_name='tribiani')
+            email='joeytribiani@yahoo.com', password='12345qwerty', first_name='joey', last_name='tribiani', pincode='123456', phone_number='1555555555')
 
     def test_email_check(self):
         user_bhagyesh = CMSUser.objects.get(first_name='john')
