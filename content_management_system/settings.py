@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.core',
+    'api.contentdata',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -99,6 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -114,6 +118,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL = 'core.CMSUser'
+
+# Media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
