@@ -2,9 +2,29 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import CMSUser
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
+
+import re
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext as _
+
+
+def uppercase_validate(password):
+    if not re.findall('[A-Z]', password):
+        raise ValidationError(
+            _("The password must contain at least 1 uppercase letter, A-Z."),
+            code='password_no_upper',
+        )
+
+
+def lowercase_validate(password):
+    if not re.findall('[a-z]', password):
+        raise ValidationError(
+            _("The password must contain at least 1 lowercase letter, a-z."),
+            code='password_no_lower',
+        )
 
 
 class RegisterSerializer(ModelSerializer):
@@ -12,11 +32,12 @@ class RegisterSerializer(ModelSerializer):
     password = serializers.CharField(max_length=100, min_length=8,
                                      label=_("Password"),
                                      style={'input_type': 'password'},
-                                     trim_whitespace=False)
+                                     trim_whitespace=False,
+                                     validators=[uppercase_validate, lowercase_validate])
 
     first_name = serializers.CharField(max_length=100)
     last_name = serializers.CharField(max_length=100)
-    phone_number = serializers.IntegerField(validators=[MaxValueValidator(9999999999)])
+    phone_number = serializers.IntegerField(validators=[MaxValueValidator(9999999999), MinValueValidator(1000000000)])
     pincode = serializers.IntegerField(validators=[MaxValueValidator(999999)])
 
     def create(self, validated_data):
@@ -25,7 +46,7 @@ class RegisterSerializer(ModelSerializer):
 
     class Meta:
         model = CMSUser
-        fields = ('id', 'create_date', 'update_date', 'email', 'first_name', 'last_name', 'phone_number', 'pincode', 'password')
+        fields = ('id', 'create_date', 'update_date', 'email', 'first_name', 'last_name', 'address', 'city', 'state', 'country', 'phone_number', 'pincode', 'password')
 
 
 class LoginSerializer(ModelSerializer):
